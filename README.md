@@ -51,7 +51,7 @@ server:
 	"version": "2",
 	"nacos.weight":10,
 	"nacos.healthy":true,
-	"name":"gray-api-01
+	"name":"gray-api-01"
 }
 
 ```
