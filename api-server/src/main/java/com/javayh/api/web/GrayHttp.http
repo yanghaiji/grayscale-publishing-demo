@@ -1,0 +1,8 @@
+
+### 通过 header 指定版本号，结合nacos实现灰度发布
+GET http://localhost:9080/system/api/test
+version: 2
+
+### 采用自定义配置文件指定版本号（指定灰度人员列表）的方式，结合nacos原数据实现灰度
+GET http://localhost:9080/system/api/test
+userId: abc
