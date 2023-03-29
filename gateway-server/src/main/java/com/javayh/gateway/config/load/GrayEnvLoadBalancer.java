@@ -62,15 +62,16 @@ public class GrayEnvLoadBalancer implements ReactorServiceInstanceLoadBalancer {
             log.warn("[getInstanceResponse][serviceId({}) 服务实例列表为空]", serviceId);
             return new EmptyResponse();
         }
-        // todo 这里获取可以根据等候的信息获取
+        // todo 这里获取可以根据登录的信息获取
         String userId = Objects.requireNonNull(headers.get("userId")).stream().findFirst().orElse("");
         // 筛选满足 version 条件的实例列表
         String version = serverGrayProperty.getGrayVersion();
+        String proVersion = serverGrayProperty.getProVersion();
         // 筛选满足 灰度的用户实例列表
         List<String> grayUsers = serverGrayProperty.getGrayUsers();
         List<ServiceInstance> chooseInstances;
-        if (StrUtil.isEmpty(version) && !grayUsers.contains(userId)) {
-            chooseInstances = instances;
+        if (StrUtil.isNotEmpty(proVersion) && !grayUsers.contains(userId)) {
+            chooseInstances = filterList(instances, instance -> proVersion.equals(instance.getMetadata().get("version")));
         } else {
             // 选择满足条件的实例
             chooseInstances = filterList(instances, instance -> version.equals(instance.getMetadata().get("version")) && grayUsers.contains(userId));
