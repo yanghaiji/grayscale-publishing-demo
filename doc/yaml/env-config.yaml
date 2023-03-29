@@ -1,0 +1,6 @@
+server:
+  gray:
+    proVersion: 1
+    enable: true
+    grayUsers:  abc,ii,ss,kk,bb,pp
+    grayVersion:  2
